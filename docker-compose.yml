@@ -30,6 +30,18 @@ services:
       - DB_USERNAME=${DB_USER:-phper}
       - DB_PASSWORD=${DB_PASS:-secret}
 
+  front:
+    build:
+      context: .
+      dockerfile: ./infra/docker/node/Dockerfile
+    tty: true
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /work/frontend
+    ports:
+      - "3000:3000"
+
   web:
     build:
       context: .
